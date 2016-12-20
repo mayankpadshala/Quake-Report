@@ -1,76 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:orientation="horizontal">
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp">
 
     <TextView
         android:id="@+id/tvMag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="8dp"
-        android:layout_weight="1.2"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/magnitude_circle"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:text="0.5"
-        android:textColor="@color/colorPrimary"
-        android:textAlignment="textStart" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        tools:text="8.9" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_weight="0.6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:textAppearance="?android:textAppearanceSmall"
             android:id="@+id/tvPlace"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:textColor="@color/colorPrimary"
-            android:text="San Fransisco"
-            android:textAlignment="textStart" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tools:text="30km S of" />
 
         <TextView
-            android:textAppearance="?android:textAppearanceMedium"
             android:id="@+id/tvStreet"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:text="San Fransisco"
-            android:textAlignment="textStart" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/textColorEarthquakeLocation"
+            android:textSize="16sp"
+            tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_weight="1.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvDate"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:textColor="@color/colorPrimary"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:gravity="bottom"
-            android:text="01/01/2016" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tools:text="Mar 6, 2010" />
 
         <TextView
             android:id="@+id/tvTime"
-            android:textColor="@color/colorPrimary"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="top"
-            android:textAlignment="textEnd"
-            android:text="01/01/2016" />
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/textColorEarthquakeDetails"
+            android:textSize="12sp"
+            tools:text="3:00 PM" />
 
+    </LinearLayout>
 </LinearLayout>

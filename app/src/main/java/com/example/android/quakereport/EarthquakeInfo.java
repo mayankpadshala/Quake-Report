@@ -8,15 +8,15 @@ public class EarthquakeInfo {
 
     double mMagnitude;
 
-    String mPlace;
-
+    String mPlace, mEarthquakeUrl;
 
     long mTimeInMilliseconds;
 
-    public EarthquakeInfo(double Magnitude, String Place, long TimeInMilliseconds){
+    public EarthquakeInfo(double Magnitude, String Place, long TimeInMilliseconds, String EarthquakeUrl){
         mMagnitude = Magnitude;
         mPlace = Place;
         mTimeInMilliseconds = TimeInMilliseconds;
+        mEarthquakeUrl = EarthquakeUrl;
     }
 
     public double getMagnitude() {
@@ -29,6 +29,10 @@ public class EarthquakeInfo {
 
     public long getTimeInMilliseconds() {
         return mTimeInMilliseconds;
+    }
+
+    public String getEarthquakeUrl() {
+        return mEarthquakeUrl;
     }
 
 }

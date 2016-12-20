@@ -10,10 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Helper methods related to requesting and receiving earthquake data from USGS.
@@ -57,16 +54,25 @@ public final class JsonQueryUtils {
             // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
             // build up a list of Earthquake objects with the corresponding data.
 
-            JSONObject root = new JSONObject(SAMPLE_JSON_RESPONSE);
-            JSONArray features = root.getJSONArray("features");
-            Date dateObject;
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM DD,yyyy h:mm a", Locale.ENGLISH);
+            JSONObject baseJsonObject = new JSONObject(SAMPLE_JSON_RESPONSE);
+            JSONArray features = baseJsonObject.getJSONArray("features");
+//            Date dateObject;
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM DD,yyyy h:mm a", Locale.ENGLISH);
 
             for (int i = 0; i < features.length(); i++) {
-                JSONObject earthquake = features.getJSONObject(i);
-                JSONObject properties = earthquake.getJSONObject("properties");
+                JSONObject currentEarthquake = features.getJSONObject(i);
+                JSONObject properties = currentEarthquake.getJSONObject("properties");
                 double mag = properties.getDouble("mag");
                 String places = properties.getString("place");
+                long time = properties.getLong("time");
+                String earthquakeUrl = properties.getString("url");
+
+                //Create Earthquake java object from magnitude, location, and time
+                EarthquakeInfo earthquakeInfo = new EarthquakeInfo(mag, places, time, earthquakeUrl);
+                //Add earthquake to list of earthquakes
+                earthquakes.add(earthquakeInfo);
+
+
 //                int index = places.indexOf("of");
 //                Log.v("Index of--"," " + i +" - "+ index);
 
@@ -86,9 +92,7 @@ public final class JsonQueryUtils {
 //                    j++;
 //                }
 
-                long time = properties.getLong("time");
 
-                earthquakes.add(new EarthquakeInfo(mag, places, time));
             }
 
         } catch (JSONException e) {

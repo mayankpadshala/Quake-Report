@@ -1,14 +1,16 @@
 package com.example.android.quakereport;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.util.Log;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +31,7 @@ public class EarthquakeAdapter extends ArrayAdapter<EarthquakeInfo> {
         TextView textMagnitude, textPlace, textTimeInMiliseconds, textTimeToDisplay, textStreet;
     }
 
-    @NonNull
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
@@ -54,10 +56,14 @@ public class EarthquakeAdapter extends ArrayAdapter<EarthquakeInfo> {
         }
 
         double x = currentItem.getMagnitude();
+        DecimalFormat decimalFormat = new DecimalFormat("0.0");
+        String magnitude = decimalFormat.format(x);
         long y = currentItem.getTimeInMilliseconds();
         Date dateObject = new Date(y);
         String formattedDate = formatDate(dateObject);
         String formattedTime = formatTime(dateObject);
+
+        final String url = currentItem.getEarthquakeUrl();
 
         String Str = currentItem.getPlace();
         String[] parts = new String[2];
@@ -75,9 +81,22 @@ public class EarthquakeAdapter extends ArrayAdapter<EarthquakeInfo> {
             parts[1] = Str;
         }
 
-        Log.v("" + parts[0], parts[1]);
+        //Log.v("" + parts[0], parts[1]);
 
-        holder.textMagnitude.setText(String.valueOf(x));
+        Color bkgColor = new Color();
+
+        // Set the proper background color on the magnitude circle.
+        // Fetch the background from the TextView, which is a GradientDrawable.
+        GradientDrawable magnitudeCircle = (GradientDrawable) holder.textMagnitude.getBackground();
+
+        // Get the appropriate background color based on the current earthquake magnitude
+        int magnitudeColor = getMagnitudeColor(currentItem.getMagnitude());
+
+        // Set the color on the magnitude circle
+        magnitudeCircle.setColor(magnitudeColor);
+
+
+        holder.textMagnitude.setText(magnitude);
         holder.textPlace.setText(parts[0]);
         holder.textStreet.setText(parts[1]);
         holder.textTimeInMiliseconds.setText(formattedDate);
@@ -96,4 +115,45 @@ public class EarthquakeAdapter extends ArrayAdapter<EarthquakeInfo> {
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
         return dateFormat.format(dateObject);
     }
+
+    private int getMagnitudeColor(double magnitude) {
+        int magnitudeColorResourceId;
+        int magnitudeFloor = (int) Math.floor(magnitude);
+        switch (magnitudeFloor) {
+            case 0:
+            case 1:
+                magnitudeColorResourceId = R.color.magnitude1;
+                break;
+            case 2:
+                magnitudeColorResourceId = R.color.magnitude2;
+                break;
+            case 3:
+                magnitudeColorResourceId = R.color.magnitude3;
+                break;
+            case 4:
+                magnitudeColorResourceId = R.color.magnitude4;
+                break;
+            case 5:
+                magnitudeColorResourceId = R.color.magnitude5;
+                break;
+            case 6:
+                magnitudeColorResourceId = R.color.magnitude6;
+                break;
+            case 7:
+                magnitudeColorResourceId = R.color.magnitude7;
+                break;
+            case 8:
+                magnitudeColorResourceId = R.color.magnitude8;
+                break;
+            case 9:
+                magnitudeColorResourceId = R.color.magnitude9;
+                break;
+            default:
+                magnitudeColorResourceId = R.color.magnitude10plus;
+                break;
+        }
+        return ContextCompat.getColor(getContext(), magnitudeColorResourceId);
+    }
+
+
 }
